@@ -241,8 +241,13 @@ function isPalindrome(str) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -260,8 +265,20 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let numNew = num;
+  let ostatok;
+  while (numNew / 10 > 1) {
+    ostatok = numNew % 10;
+    if (ostatok === digit) {
+      return true;
+    }
+    numNew = (numNew - ostatok) / 10;
+  }
+  if (numNew === digit) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -277,8 +294,27 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  if (arr.length === 0) {
+    return -1;
+  }
+  let rightindex = arr.length - 1;
+  let leftindex = 0;
+  let rightsum = arr[rightindex];
+  let leftsum = arr[leftindex];
+  while (leftindex !== rightindex) {
+    if (leftsum >= rightsum) {
+      rightindex -= 1;
+      rightsum += arr[rightindex];
+    } else {
+      leftindex += 1;
+      leftsum += arr[leftindex];
+    }
+  }
+  if (leftsum === rightsum) {
+    return rightindex;
+  }
+  return -1;
 }
 
 /**
